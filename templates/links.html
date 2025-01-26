@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Link Facebook</title>
+</head>
+<body>
+    <h1>Danh sách Link</h1>
+    <a href="/links/add">Thêm Link</a>
+    <ul>
+        {% for link in links %}
+            <li>
+                <a href="{{ link.url }}" target="_blank">{{ link.url }}</a> - {{ link.description }}
+                <form action="/links/delete/{{ link._id }}" method="POST" style="display:inline;">
+                    <button type="submit">Xóa</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

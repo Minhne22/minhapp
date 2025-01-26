@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Proxy</title>
+</head>
+<body>
+    <h1>Danh sách Proxy</h1>
+    <a href="/add">Thêm Proxy</a>
+    <ul>
+        {% for proxy in proxies %}
+            <li>{{ proxy.ip }}:{{ proxy.port }} ({{ proxy.protocol }})
+                <form action="/delete/{{ proxy._id }}" method="POST" style="display:inline;">
+                    <button type="submit">Xóa</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

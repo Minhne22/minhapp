@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Bình luận</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <script>
+        function fetchComments() {
+            fetch('/comments/api')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById("commentsTableBody");
+                    tableBody.innerHTML = ""; // Clear table content
+
+                    data.forEach(comment => {
+                        const row = `
+                            <tr>
+                                <td>${comment.post_id}</td>
+                                <td>${comment.text}</td>
+                                <td>${comment.name}</td>
+                                <td>${new Date(comment.time * 1000).toLocaleString()}</td>
+                                <td>${comment.author_id}</td>
+                            </tr>
+                        `;
+                        tableBody.innerHTML += row;
+                    });
+                })
+                .catch(error => console.error("Error fetching comments:", error));
+        }
+
+        // Cập nhật comments mỗi 2 giây
+        setInterval(fetchComments, 2000);
+
+        // Gọi ngay khi load trang
+        window.onload = fetchComments;
+    </script>
+</head>
+<body>
+    <h1>Quản lý Bình luận</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Post ID</th>
+                <th>Nội dung</th>
+                <th>Tác giả</th>
+                <th>Thời gian</th>
+                <th>Author ID</th>
+            </tr>
+        </thead>
+        <tbody id="commentsTableBody">
+            <!-- Bình luận sẽ được nạp ở đây qua AJAX -->
+        </tbody>
+    </table>
+</body>
+</html>

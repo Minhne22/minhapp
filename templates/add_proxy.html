@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm Proxy</title>
+</head>
+<body>
+    <h1>Thêm Proxy</h1>
+    <form action="/proxies/add" method="POST">
+        <label for="proxy">Proxy (định dạng: ip:port hoặc ip:port:user:pass):</label><br>
+        <input type="text" id="proxy" name="proxy" placeholder="192.168.1.1:8080 hoặc 192.168.1.1:8080:user:pass" required>
+        <br><br>
+        <button type="submit">Thêm</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Proxy</title>
+</head>
+<body>
+    <h1>Danh sách Proxy</h1>
+    <a href="/proxies/add">Thêm Proxy</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>IP</th>
+                <th>Port</th>
+                <th>User</th>
+                <th>Password</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for proxy in proxies %}
+                <tr>
+                    <td>{{ proxy.ip }}</td>
+                    <td>{{ proxy.port }}</td>
+                    <td>{{ proxy.user or 'N/A' }}</td>
+                    <td>{{ proxy.password or 'N/A' }}</td>
+                    <td>
+                        <form action="/proxies/delete/{{ proxy._id }}" method="POST" style="display:inline;">
+                            <button type="submit">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
