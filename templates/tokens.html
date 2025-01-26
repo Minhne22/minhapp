@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Cookie/Token</title>
+    <style>
+        .btn-red {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .btn-green {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .btn-red:hover {
+            background-color: #e60000;
+        }
+
+        .btn-green:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quản lý Cookie/Token</h1>
+    <form action="/tokens/add" method="POST">
+        <label for="cookie">Cookie (nhập mỗi cookie trên một dòng):</label><br>
+        <textarea id="cookie" name="cookie" rows="5" cols="50" placeholder="Nhập cookie tại đây, mỗi dòng một cookie..." required></textarea><br><br>
+        <button type="submit">Thêm Cookie</button>
+    </form>
+    <h2>Danh sách Cookie/Token</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Cookie</th>
+                <th>Token</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for token in tokens %}
+                <tr>
+                    <td title="{{ token.cookie }}">{{ token.short_cookie }}</td>
+                    <td title="{{ token.token }}">{{ token.short_token }}</td>
+                    <td>{{ token.status }}</td>
+                    <td>
+                        <form action="/tokens/get_token/{{ token._id }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn-green">Get Token</button>
+                        </form>
+                        <form action="/tokens/delete/{{ token._id }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn-red">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
